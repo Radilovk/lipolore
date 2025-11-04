@@ -13,6 +13,88 @@ function onReady(fn) {
 }
 
 /**
+ * Language Manager - Handles multi-language support
+ */
+const LanguageManager = {
+    currentLang: 'en',
+    defaultLang: 'en',
+    
+    /**
+     * Initialize language system
+     */
+    init: function() {
+        // Load saved language preference or detect from browser
+        const savedLang = localStorage.getItem('lipolore_language');
+        const browserLang = navigator.language.split('-')[0]; // Get 'en' from 'en-US'
+        
+        // Determine initial language
+        if (savedLang && translations[savedLang]) {
+            this.currentLang = savedLang;
+        } else if (translations[browserLang]) {
+            this.currentLang = browserLang;
+        }
+        
+        // Apply the language
+        this.applyLanguage(this.currentLang);
+        
+        // Set up language switcher buttons
+        this.setupLanguageSwitcher();
+    },
+    
+    /**
+     * Apply language to all elements with data-i18n attribute
+     */
+    applyLanguage: function(lang) {
+        if (!translations[lang]) {
+            lang = this.defaultLang;
+        }
+        
+        this.currentLang = lang;
+        localStorage.setItem('lipolore_language', lang);
+        
+        // Update HTML lang attribute
+        document.documentElement.setAttribute('lang', lang);
+        
+        // Update all translatable elements
+        document.querySelectorAll('[data-i18n]').forEach(element => {
+            const key = element.getAttribute('data-i18n');
+            if (translations[lang][key]) {
+                // Handle different element types
+                if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
+                    if (element.hasAttribute('placeholder')) {
+                        element.setAttribute('placeholder', translations[lang][key]);
+                    } else {
+                        element.value = translations[lang][key];
+                    }
+                } else {
+                    element.textContent = translations[lang][key];
+                }
+            }
+        });
+        
+        // Update active language button
+        document.querySelectorAll('.lang-btn').forEach(btn => {
+            btn.classList.toggle('active', btn.getAttribute('data-lang') === lang);
+        });
+    },
+    
+    /**
+     * Set up language switcher event listeners
+     */
+    setupLanguageSwitcher: function() {
+        document.querySelectorAll('.lang-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                const lang = btn.getAttribute('data-lang');
+                if (lang && translations[lang]) {
+                    this.applyLanguage(lang);
+                }
+            });
+        });
+    }
+};
+
+/**
  * Initializes all the interactive scripts for the Lipolore website.
  */
 function initializeWebsite() {
@@ -100,7 +182,7 @@ function initializeWebsite() {
     }
 
     /**
-     * Manages the quantity selector in the order form.
+     * Manages the quantity selector in the order form (if present).
      */
     function handleQuantitySelector() {
         const form = document.getElementById('order-form');
@@ -135,18 +217,21 @@ function initializeWebsite() {
         form.addEventListener('submit', (e) => {
             e.preventDefault(); // Prevent actual form submission
             
+            const currentLang = LanguageManager.currentLang;
+            const t = translations[currentLang];
+            
             // Basic validation check
             const name = form.querySelector('#name').value.trim();
-            const phone = form.querySelector('#phone').value.trim();
-            const address = form.querySelector('#address').value.trim();
+            const email = form.querySelector('#email').value.trim();
+            const message = form.querySelector('#message').value.trim();
 
-            if (!name || !phone || !address) {
-                alert('Please fill in all required fields: Name, Phone, and Address.');
+            if (!name || !email || !message) {
+                alert(t.form_error || 'Please fill in all required fields.');
                 return;
             }
             
             // On success
-            alert('Thank you for your order! Our team will contact you shortly to confirm the details.');
+            alert(t.form_success || 'Thank you for your inquiry! Our team will contact you shortly.');
             form.reset(); // Clear the form fields
         });
     }
@@ -234,6 +319,7 @@ function initializeWebsite() {
 
 
     // --- Initialize all functions ---
+    LanguageManager.init(); // Initialize language support first
     handleStickyHeader();
     handleScrollAnimations();
     handleIngredientCardFlip();
