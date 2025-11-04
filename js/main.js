@@ -184,6 +184,37 @@ function initializeWebsite() {
         });
     }
 
+    /**
+     * Handles FAQ accordion functionality.
+     */
+    function handleFAQAccordion() {
+        const faqItems = document.querySelectorAll('.faq-item');
+        
+        faqItems.forEach(item => {
+            const question = item.querySelector('.faq-question');
+            
+            if (!question) return;
+            
+            question.addEventListener('click', () => {
+                const isActive = item.classList.contains('active');
+                
+                // Close all other FAQ items
+                faqItems.forEach(otherItem => {
+                    if (otherItem !== item) {
+                        otherItem.classList.remove('active');
+                    }
+                });
+                
+                // Toggle current item
+                if (isActive) {
+                    item.classList.remove('active');
+                } else {
+                    item.classList.add('active');
+                }
+            });
+        });
+    }
+
 
     // --- Initialize all functions ---
     handleStickyHeader();
@@ -192,6 +223,7 @@ function initializeWebsite() {
     handleQuantitySelector();
     handleFormSubmission();
     handleMobileNavigation();
+    handleFAQAccordion();
 }
 
 // Run the initialization script once the DOM is ready.
