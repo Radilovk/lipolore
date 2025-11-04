@@ -243,6 +243,38 @@ img {
     box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
 }
 
+/* Language Switcher */
+.language-switcher {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.lang-btn {
+    padding: 6px 12px;
+    border: 2px solid var(--color-gray);
+    background: transparent;
+    color: var(--color-dark);
+    border-radius: 4px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all var(--transition-speed);
+    font-family: var(--font-primary);
+    text-transform: uppercase;
+}
+
+.lang-btn:hover {
+    border-color: var(--color-primary);
+    color: var(--color-primary);
+}
+
+.lang-btn.active {
+    background-color: var(--color-primary);
+    border-color: var(--color-primary);
+    color: var(--color-white);
+}
+
 
 /* ============================
    4. HERO SECTION
@@ -896,6 +928,15 @@ img {
 @media (max-width: 767px) {
     .nav-btn {
         display: none;
+    }
+    
+    .language-switcher {
+        gap: 5px;
+    }
+    
+    .lang-btn {
+        padding: 5px 8px;
+        font-size: 0.75rem;
     }
     
     .main-nav {
