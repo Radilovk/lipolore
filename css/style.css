@@ -771,7 +771,7 @@ img {
 }
 
 .faq-item.active .faq-answer {
-    max-height: 500px;
+    max-height: 1000px; /* Increased for longer answers */
     padding: 0 25px 20px;
 }
 
