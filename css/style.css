@@ -273,13 +273,103 @@ img {
     box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
 }
 
-/* Language Switcher */
+/* Language Switcher with Dropdown */
 .language-switcher {
+    position: relative;
     display: flex;
-    gap: 8px;
     align-items: center;
 }
 
+.lang-dropdown-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 12px;
+    background: transparent;
+    border: 2px solid var(--color-gray);
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all var(--transition-speed);
+    font-family: var(--font-primary);
+}
+
+.lang-dropdown-btn:hover {
+    border-color: var(--color-primary);
+    background: rgba(228, 0, 124, 0.05);
+}
+
+.lang-dropdown-btn .flag-icon {
+    font-size: 1.2rem;
+    line-height: 1;
+}
+
+.dropdown-arrow {
+    color: var(--color-dark);
+    transition: transform var(--transition-speed);
+}
+
+.lang-dropdown-btn[aria-expanded="true"] .dropdown-arrow {
+    transform: rotate(180deg);
+}
+
+.lang-dropdown-menu {
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    background: var(--color-white);
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    padding: 8px;
+    min-width: 160px;
+    z-index: 1100;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: opacity var(--transition-speed), transform var(--transition-speed), visibility var(--transition-speed);
+}
+
+.lang-dropdown-menu.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.lang-option {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    padding: 10px 12px;
+    background: transparent;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background var(--transition-speed);
+    font-family: var(--font-secondary);
+    font-size: 0.95rem;
+    text-align: left;
+}
+
+.lang-option:hover {
+    background: var(--color-light);
+}
+
+.lang-option.active {
+    background: rgba(228, 0, 124, 0.1);
+    color: var(--color-primary);
+    font-weight: 600;
+}
+
+.lang-option .flag-icon {
+    font-size: 1.3rem;
+    line-height: 1;
+}
+
+.lang-option .lang-name {
+    flex: 1;
+}
+
+/* Old lang-btn styles - keep for backward compatibility with other pages */
 .lang-btn {
     padding: 6px 12px;
     border: 2px solid var(--color-gray);

@@ -45,10 +45,30 @@
                 </ul>
             </nav>
             <div class="language-switcher">
-                <button class="lang-btn" data-lang="en" aria-label="English">EN</button>
-                <button class="lang-btn" data-lang="fr" aria-label="Français">FR</button>
-                <button class="lang-btn" data-lang="es" aria-label="Español">ES</button>
-                <button class="lang-btn" data-lang="ru" aria-label="Русский">RU</button>
+                <button class="lang-dropdown-btn" aria-label="Select Language" aria-haspopup="true" aria-expanded="false">
+                    <span class="flag-icon">🇬🇧</span>
+                    <svg class="dropdown-arrow" width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M2 4L6 8L10 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
+                <div class="lang-dropdown-menu">
+                    <button class="lang-option" data-lang="en" aria-label="English">
+                        <span class="flag-icon">🇬🇧</span>
+                        <span class="lang-name">English</span>
+                    </button>
+                    <button class="lang-option" data-lang="fr" aria-label="Français">
+                        <span class="flag-icon">🇫🇷</span>
+                        <span class="lang-name">Français</span>
+                    </button>
+                    <button class="lang-option" data-lang="es" aria-label="Español">
+                        <span class="flag-icon">🇪🇸</span>
+                        <span class="lang-name">Español</span>
+                    </button>
+                    <button class="lang-option" data-lang="ru" aria-label="Русский">
+                        <span class="flag-icon">🇷🇺</span>
+                        <span class="lang-name">Русский</span>
+                    </button>
+                </div>
             </div>
             <a href="index.html#order" class="btn btn-primary nav-btn" data-i18n="nav_order_btn">Contact Us</a>
             <button class="mobile-nav-toggle" aria-label="Toggle navigation">
