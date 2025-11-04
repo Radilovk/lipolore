@@ -38,6 +38,8 @@ body {
     color: var(--color-dark);
     background-color: var(--color-white);
     line-height: 1.6;
+    /* Add padding-top to account for fixed header + promo banner */
+    padding-top: 110px;
 }
 
 a {
@@ -166,12 +168,40 @@ img {
 
 
 /* ============================
-   3. HEADER & NAVIGATION
+   3. PROMO BANNER
+   ============================ */
+
+.promo-banner {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: linear-gradient(135deg, var(--color-primary), #c3006a);
+    color: var(--color-white);
+    text-align: center;
+    padding: 12px 20px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    animation: pulse 2s ease-in-out infinite;
+    z-index: 1001;
+}
+
+.promo-banner p {
+    margin: 0;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.9; }
+}
+
+/* ============================
+   4. HEADER & NAVIGATION
    ============================ */
 
 .main-header {
     position: fixed;
-    top: 0;
+    top: 46px; /* Position below promo banner */
     left: 0;
     width: 100%;
     z-index: 1000;
@@ -277,28 +307,12 @@ img {
 
 
 /* ============================
-   4. HERO SECTION
+   5. HERO SECTION
    ============================ */
-
-.promo-banner {
-    background: linear-gradient(135deg, var(--color-primary), #c3006a);
-    color: var(--color-white);
-    text-align: center;
-    padding: 12px 20px;
-    font-weight: 600;
-    font-size: 0.95rem;
-    animation: pulse 2s ease-in-out infinite;
-}
-
-@keyframes pulse {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.9; }
-}
 
 #hero {
     min-height: 100vh;
     display: flex;
-    flex-direction: column;
     align-items: center;
     justify-content: center;
     text-align: center;
