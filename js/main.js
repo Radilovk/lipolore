@@ -184,6 +184,54 @@ function initializeWebsite() {
         });
     }
 
+    /**
+     * Handles FAQ accordion functionality with keyboard accessibility.
+     */
+    function handleFAQAccordion() {
+        const faqItems = document.querySelectorAll('.faq-item');
+        
+        faqItems.forEach(item => {
+            const question = item.querySelector('.faq-question');
+            
+            if (!question) return;
+            
+            const toggleFAQ = () => {
+                const isActive = item.classList.contains('active');
+                
+                // Close all other FAQ items
+                faqItems.forEach(otherItem => {
+                    if (otherItem !== item) {
+                        otherItem.classList.remove('active');
+                        const otherQuestion = otherItem.querySelector('.faq-question');
+                        if (otherQuestion) {
+                            otherQuestion.setAttribute('aria-expanded', 'false');
+                        }
+                    }
+                });
+                
+                // Toggle current item
+                if (isActive) {
+                    item.classList.remove('active');
+                    question.setAttribute('aria-expanded', 'false');
+                } else {
+                    item.classList.add('active');
+                    question.setAttribute('aria-expanded', 'true');
+                }
+            };
+            
+            // Click event
+            question.addEventListener('click', toggleFAQ);
+            
+            // Keyboard event for accessibility
+            question.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    toggleFAQ();
+                }
+            });
+        });
+    }
+
 
     // --- Initialize all functions ---
     handleStickyHeader();
@@ -192,6 +240,7 @@ function initializeWebsite() {
     handleQuantitySelector();
     handleFormSubmission();
     handleMobileNavigation();
+    handleFAQAccordion();
 }
 
 // Run the initialization script once the DOM is ready.
