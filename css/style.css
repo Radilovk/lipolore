@@ -945,8 +945,6 @@ img {
     
     .pricing-grid { grid-template-columns: repeat(3, 1fr); }
     
-    .pricing-card.featured { transform: scale(1); }
-    
     .order-grid { grid-template-columns: 1fr 1fr; }
 
     .main-footer .container {
@@ -986,6 +984,4 @@ img {
     .ingredients-grid { grid-template-columns: repeat(3, 1fr); }
     
     .testimonials-grid { grid-template-columns: repeat(3, 1fr); }
-    
-    .pricing-card.featured { transform: scale(1.05); }
 }
