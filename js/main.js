@@ -197,6 +197,28 @@ const LanguageManager = {
 function initializeWebsite() {
 
     /**
+     * Adjusts the header and body positions based on the promo banner height.
+     * This ensures the banner never overlaps the header on any screen size.
+     */
+    function adjustHeaderPosition() {
+        const promoBanner = document.querySelector('.promo-banner');
+        const header = document.querySelector('.main-header');
+        const body = document.body;
+        
+        if (!promoBanner || !header) return;
+        
+        // Get the actual height of the promo banner
+        const bannerHeight = promoBanner.offsetHeight;
+        
+        // Position the header right below the banner
+        header.style.top = `${bannerHeight}px`;
+        
+        // Adjust body padding to account for both banner and header
+        // Assuming header has ~60px height when not scrolled (20px padding top + 20px padding bottom + content)
+        body.style.paddingTop = `${bannerHeight + 64}px`;
+    }
+
+    /**
      * Handles the sticky header functionality.
      * Adds a 'scrolled' class to the header when the user scrolls down.
      */
@@ -417,6 +439,7 @@ function initializeWebsite() {
 
     // --- Initialize all functions ---
     LanguageManager.init(); // Initialize language support first
+    adjustHeaderPosition(); // Adjust header position based on banner height
     handleStickyHeader();
     handleScrollAnimations();
     handleIngredientCardFlip();
@@ -424,6 +447,9 @@ function initializeWebsite() {
     handleFormSubmission();
     handleMobileNavigation();
     handleFAQAccordion();
+    
+    // Re-adjust header position on window resize to handle orientation changes
+    window.addEventListener('resize', adjustHeaderPosition);
 }
 
 // Run the initialization script once the DOM is ready.

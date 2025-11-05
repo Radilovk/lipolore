@@ -39,7 +39,7 @@ body {
     background-color: var(--color-white);
     line-height: 1.6;
     /* Add padding-top to account for fixed header + promo banner */
-    padding-top: 110px;
+    padding-top: 112px;
 }
 
 a {
@@ -201,7 +201,7 @@ img {
 
 .main-header {
     position: fixed;
-    top: 46px; /* Position below promo banner */
+    top: 48px; /* Position below promo banner */
     left: 0;
     width: 100%;
     z-index: 1000;
