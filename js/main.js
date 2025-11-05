@@ -210,12 +210,15 @@ function initializeWebsite() {
         // Get the actual height of the promo banner
         const bannerHeight = promoBanner.offsetHeight;
         
-        // Position the header right below the banner
+        // Position the header right below the banner using inline style
+        // (inline style is necessary for dynamic positioning)
         header.style.top = `${bannerHeight}px`;
         
+        // Get the actual header height for accurate body padding calculation
+        const headerHeight = header.offsetHeight;
+        
         // Adjust body padding to account for both banner and header
-        // Assuming header has ~60px height when not scrolled (20px padding top + 20px padding bottom + content)
-        body.style.paddingTop = `${bannerHeight + 64}px`;
+        body.style.paddingTop = `${bannerHeight + headerHeight}px`;
     }
 
     /**
