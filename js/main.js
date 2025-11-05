@@ -451,8 +451,12 @@ function initializeWebsite() {
     handleMobileNavigation();
     handleFAQAccordion();
     
-    // Re-adjust header position on window resize to handle orientation changes
-    window.addEventListener('resize', adjustHeaderPosition);
+    // Re-adjust header position on window resize with debouncing for better performance
+    let resizeTimeout;
+    window.addEventListener('resize', () => {
+        clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(adjustHeaderPosition, 100);
+    });
 }
 
 // Run the initialization script once the DOM is ready.
