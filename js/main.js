@@ -197,6 +197,31 @@ const LanguageManager = {
 function initializeWebsite() {
 
     /**
+     * Adjusts the header and body positions based on the promo banner height.
+     * This ensures the banner never overlaps the header on any screen size.
+     */
+    function adjustHeaderPosition() {
+        const promoBanner = document.querySelector('.promo-banner');
+        const header = document.querySelector('.main-header');
+        const body = document.body;
+        
+        if (!promoBanner || !header) return;
+        
+        // Get the actual height of the promo banner
+        const bannerHeight = promoBanner.offsetHeight;
+        
+        // Position the header right below the banner using inline style
+        // (inline style is necessary for dynamic positioning)
+        header.style.top = `${bannerHeight}px`;
+        
+        // Get the actual header height for accurate body padding calculation
+        const headerHeight = header.offsetHeight;
+        
+        // Adjust body padding to account for both banner and header
+        body.style.paddingTop = `${bannerHeight + headerHeight}px`;
+    }
+
+    /**
      * Handles the sticky header functionality.
      * Adds a 'scrolled' class to the header when the user scrolls down.
      */
@@ -417,6 +442,7 @@ function initializeWebsite() {
 
     // --- Initialize all functions ---
     LanguageManager.init(); // Initialize language support first
+    adjustHeaderPosition(); // Adjust header position based on banner height
     handleStickyHeader();
     handleScrollAnimations();
     handleIngredientCardFlip();
@@ -424,6 +450,13 @@ function initializeWebsite() {
     handleFormSubmission();
     handleMobileNavigation();
     handleFAQAccordion();
+    
+    // Re-adjust header position on window resize with debouncing for better performance
+    let resizeTimeout;
+    window.addEventListener('resize', () => {
+        clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(adjustHeaderPosition, 100);
+    });
 }
 
 // Run the initialization script once the DOM is ready.
