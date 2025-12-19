@@ -38,8 +38,7 @@ body {
     color: var(--color-dark);
     background-color: var(--color-white);
     line-height: 1.6;
-    /* Add padding-top to account for fixed header + promo banner */
-    padding-top: 112px;
+    /* Padding-top will be set dynamically by JavaScript to prevent banner/header overlap */
 }
 
 a {
@@ -201,7 +200,7 @@ img {
 
 .main-header {
     position: fixed;
-    top: 48px; /* Position below promo banner */
+    top: 0; /* Will be positioned below promo banner by JavaScript */
     left: 0;
     width: 100%;
     z-index: 1000;
