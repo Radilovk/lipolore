@@ -205,17 +205,18 @@ function initializeWebsite() {
         const header = document.querySelector('.main-header');
         const body = document.body;
         
-        if (!promoBanner || !header) return;
+        if (!header) return;
         
-        // Get the actual height of the promo banner
-        const bannerHeight = promoBanner.offsetHeight;
+        // Get the actual rendered height of the promo banner (0 if it doesn't exist)
+        // Use getBoundingClientRect for accurate sub-pixel measurements, then ceil to avoid overlap
+        const bannerHeight = promoBanner ? Math.ceil(promoBanner.getBoundingClientRect().height) : 0;
         
         // Position the header right below the banner using inline style
         // (inline style is necessary for dynamic positioning)
         header.style.top = `${bannerHeight}px`;
         
         // Get the actual header height for accurate body padding calculation
-        const headerHeight = header.offsetHeight;
+        const headerHeight = Math.ceil(header.getBoundingClientRect().height);
         
         // Adjust body padding to account for both banner and header
         body.style.paddingTop = `${bannerHeight + headerHeight}px`;
